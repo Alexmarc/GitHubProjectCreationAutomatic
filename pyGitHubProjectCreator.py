@@ -19,7 +19,7 @@ repo = user.create_repo(foldername)
 
 commands = [f'echo "# {repo.name}" >> README.md',
             'git init',
-            f'git remote add origin https://github.com/{login}/{foldername}.git'
+            f'git remote add origin https://github.com/{login}/{foldername}.git',
             'git add .',
             'git commit -m "Initial commit"',
             'git push -u origin master']
