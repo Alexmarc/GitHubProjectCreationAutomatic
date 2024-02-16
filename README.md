@@ -17,7 +17,6 @@ You won't need to setup the projects like this :
 git init
 git add origin https...
 
-You'll just have to double click on CreateProject.bat setup a project name and VOILA !
 ```
 
 
@@ -40,7 +39,6 @@ It's really easy to use :
 - Then run the script, select a name for your repository (local directory will be named like the online one)
 - It's done your PRIVATE repo is created, if you need a public one just delete "privet=true" inside create_repo function
 
-Njoy
-
-
 ```
+
+Njoy
