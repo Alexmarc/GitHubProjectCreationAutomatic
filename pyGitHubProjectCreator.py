@@ -4,18 +4,18 @@ from github import Github
 from pathlib import Path
 import time
 
-foldername = str(sys.argv[1])
+foldername = input("Please enter the folder name: ")
 
 time.sleep(1)
 
 path = Path(os.environ.get('mp'))         # add projects dirctory to the env vars like you did with Set_Env_Var.bat
 token = os.environ.get('gt')        # add github token to the env vars like you did with Set_Env_Var.bat / see https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token to know how to create a token
-_dir = path + '/' + foldername
+_dir = path / foldername
 
 g = Github(token)
 user = g.get_user()
 login = user.login
-repo = user.create_repo(foldername)
+repo = user.create_repo(foldername, private=True)
 
 commands = [f'echo "# {repo.name}" >> README.md',
             'git init',
@@ -25,7 +25,7 @@ commands = [f'echo "# {repo.name}" >> README.md',
             'git push -u origin main']
 
 print("Repository github created start create local one")
-print("Local folder path : " + _dir)
+print("Local folder path : " + str(_dir))
 
 time.sleep(1)
 
