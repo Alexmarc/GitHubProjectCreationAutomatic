@@ -11,11 +11,25 @@ foldername = input("Please enter the folder name: ")
 
 time.sleep(1)
 
-path = Path(os.environ.get('mp'))         # add projects dirctory to the env vars like you did with Set_Env_Var.bat
+path = Path(os.environ.get('mp'))   # add projects dirctory to the env vars like you did with Set_Env_Var.bat
 token = os.environ.get('gt')        # add github token to the env vars like you did with Set_Env_Var.bat / see https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token to know how to create a token
 _dir = path / foldername
 
 
+
+def OpenWithVsCode(_pathToVsCode, _pathToFile):
+    # try:
+    #     with open('fichier'): pass
+    # except IOError:
+    #     print(f"Impossible de trouver l'executable de VS Code, ajoutez une variable d'environnement : codeEXE avec le chemin, souvent C:/Users/username/AppData/Local/Programs/Microsoft VS Code/Code.exe")
+
+    # Vérification de l'existence du fichier
+    if path.exists():
+        # Ouvrir le fichier avec VS Code en réutilisant la fenêtre actuelle
+        subprocess.run([_pathToVsCode, '-n', str(_pathToFile)])
+    else:
+        print("Le fichier spécifié n'existe pas.")
+        
 
 def CreateLocalFolder():
     _dir.mkdir(parents=True, exist_ok=True)
@@ -34,8 +48,8 @@ def CreateReadmeFile():
 
     time.sleep(1)
 
-    #Open README.md in vscode
-    # subprocess.run(["code", str(destination_path)])
+    vscodeExecutable = Path(str(os.getenv("codeEXE")))
+    OpenWithVsCode(vscodeExecutable, destination_path)
 
 
 def CreateOnlineRepo():
@@ -43,8 +57,6 @@ def CreateOnlineRepo():
     user = g.get_user()
     login = user.login
     repo = user.create_repo(foldername, private=True)
-
-
 
     commands = ['git init',
                 f'git remote add origin https://github.com/{login}/{foldername}.git',
